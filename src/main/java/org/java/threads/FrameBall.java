@@ -23,27 +23,29 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.generics.arraylists;
+package org.java.threads;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class ArrayList {
+public class FrameBall extends JPanel {
+    private ArrayList<Ball> balls = new ArrayList<Ball>();
     
-    public ArrayList(int z){
-        dataElement = new Object[z];
+    public void add(Ball b){
+        balls.add(b);
     }
     
-    public Object get(int i){
-        return dataElement[i];
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        for(Ball b: balls){
+            g2.fill(b.getShape());
+        }
     }
-    
-    public void add(Object o){
-        dataElement[i] = o;
-        i++;
-    }
-    
-    private Object[] dataElement;
-    private int i = 0;
 }

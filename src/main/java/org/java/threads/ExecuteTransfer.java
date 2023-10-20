@@ -23,20 +23,42 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.generics.arraylists;
+package org.java.threads;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class UseArrayList {
-    public static void main(String[] args){
-        ArrayListsCustom files = new ArrayListsCustom(4);
-        files .add("Juan");
-        files.add("Maria");
-        files.add("Sandra");
-        
-        String namePerson = (String) files.get(2);
-        System.out.println(namePerson);
+public class ExecuteTransfer implements Runnable{
+    
+    private Bank bank;
+    private int theAccount;
+    private double maxQuantity;
+
+    public ExecuteTransfer(Bank b, int de, double max) {
+        this.bank = b;
+        this.theAccount = de;
+        this.maxQuantity = max;
     }
+    
+   
+    @Override
+    public void run() {
+        while(true){
+            int toAccount = (int)(100 * Math.random());
+            double quantity = this.maxQuantity*Math.random();
+            this.bank.transfer(this.theAccount, toAccount, quantity);
+            try {
+                Thread.sleep((int) (Math.random()*10));
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ExecuteTransfer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    
+    
 }

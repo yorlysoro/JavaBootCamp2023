@@ -23,20 +23,25 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.generics.arraylists;
+package org.java.threads;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class UseArrayList {
-    public static void main(String[] args){
-        ArrayListsCustom files = new ArrayListsCustom(4);
-        files .add("Juan");
-        files.add("Maria");
-        files.add("Sandra");
-        
-        String namePerson = (String) files.get(2);
-        System.out.println(namePerson);
+public class BankSync {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Bank b = new Bank();
+        for(int i=0; i<100; i++){
+            ExecuteTransfer r = new ExecuteTransfer(b, i, 2000);
+            Thread t = new Thread(r);
+            t.start();
+        }
     }
+    
 }

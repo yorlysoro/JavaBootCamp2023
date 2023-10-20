@@ -23,20 +23,49 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.generics.arraylists;
+package org.java.threads;
+
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class UseArrayList {
-    public static void main(String[] args){
-        ArrayListsCustom files = new ArrayListsCustom(4);
-        files .add("Juan");
-        files.add("Maria");
-        files.add("Sandra");
+public class Ball {
+    private static final int TAMX=15;
+    private static final int TAMY=15;
+    private double x = 0;
+    private double y = 0;
+    private double dx = 1;
+    private double dy = 1;
+    
+    public void moveBall(Rectangle2D limits){
+        x += dx;
+        y += dy;
+        if(x < limits.getMinX()){
+            x = limits.getMinX();
+            dx = -dx;
+        }
+        if(x + TAMX >= limits.getMaxX()){
+            x = limits.getMaxX() - TAMX;
+            dx = -dx;
+        }
         
-        String namePerson = (String) files.get(2);
-        System.out.println(namePerson);
+        if(y < limits.getMinY()){
+            y = limits.getMinY();
+            dy = -dy;
+        }
+        if(y + TAMY >= limits.getMaxY()){
+            y = limits.getMaxY() - TAMY;
+            dy = -dy;
+        }
+    }
+    /**
+     *
+     * @return
+     */
+    public Ellipse2D getShape(){
+        return new Ellipse2D.Double(x, y, TAMX, TAMY);
     }
 }

@@ -29,14 +29,21 @@ package org.java.generics.arraylists;
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class UseArrayList {
-    public static void main(String[] args){
-        ArrayListsCustom files = new ArrayListsCustom(4);
-        files .add("Juan");
-        files.add("Maria");
-        files.add("Sandra");
-        
-        String namePerson = (String) files.get(2);
-        System.out.println(namePerson);
+public class ArrayListsCustom {
+    
+    public ArrayListsCustom(int z){
+        dataElement = new Object[z];
     }
+    
+    public Object get(int i){
+        return dataElement[i];
+    }
+    
+    public void add(Object o){
+        dataElement[i] = o;
+        i++;
+    }
+    
+    private Object[] dataElement;
+    private int i = 0;
 }

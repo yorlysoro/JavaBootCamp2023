@@ -23,20 +23,40 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.generics.arraylists;
+package org.java.threads;
+
+import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class UseArrayList {
-    public static void main(String[] args){
-        ArrayListsCustom files = new ArrayListsCustom(4);
-        files .add("Juan");
-        files.add("Maria");
-        files.add("Sandra");
-        
-        String namePerson = (String) files.get(2);
-        System.out.println(namePerson);
+public class BallThreads implements Runnable{
+    private Ball ball;
+    private Component component;
+    
+    public BallThreads(Ball oneBall, Component oneComponent){
+        this.ball = oneBall;
+        this.component = oneComponent;
     }
+
+    @Override
+    public void run() {
+        
+        //for(int i=1; i<=3000; i++)
+        //while(!Thread.interrupted())
+        while(!Thread.currentThread().isInterrupted()){
+            ball.moveBall(component.getBounds());
+            component.paint(component.getGraphics());
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(FrameBounce.class.getName()).log(Level.SEVERE, null, ex);
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+    
 }

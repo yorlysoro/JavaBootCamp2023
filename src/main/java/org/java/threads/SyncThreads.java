@@ -23,20 +23,32 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.generics.arraylists;
+package org.java.threads;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class UseArrayList {
-    public static void main(String[] args){
-        ArrayListsCustom files = new ArrayListsCustom(4);
-        files .add("Juan");
-        files.add("Maria");
-        files.add("Sandra");
-        
-        String namePerson = (String) files.get(2);
-        System.out.println(namePerson);
-    }
+public class SyncThreads {
+   public static void main(String[] args){
+       ManyThreads thread1 = new ManyThreads();
+       ManyThreads2 thread2 = new ManyThreads2(thread1);
+       thread2.start();
+       thread1.start();
+       /*try {
+           thread1.join();
+       } catch (InterruptedException ex) {
+           Logger.getLogger(SyncThreads.class.getName()).log(Level.SEVERE, null, ex);
+       }*/
+       
+       /*try {
+           thread2.join();
+       } catch (InterruptedException ex) {
+           Logger.getLogger(SyncThreads.class.getName()).log(Level.SEVERE, null, ex);
+       }*/
+       System.out.println("Finished Main Job");
+   } 
 }
