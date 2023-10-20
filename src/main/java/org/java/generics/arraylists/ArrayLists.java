@@ -26,6 +26,7 @@
 package org.java.generics.arraylists;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -39,8 +40,14 @@ public class ArrayLists {
         listEmployees.add(new Employee("Maria", 19000,  2014, 12, 12));
         listEmployees.set(1, new Employee("Pedro", 25000, 2015, 1, 1));
         System.out.println(listEmployees.get(2));
+        System.out.println("With For Each:");
         for(Employee e: listEmployees){
             System.out.println(e);
+        }
+        Iterator <Employee> myIterator = listEmployees.iterator();
+        System.out.println("With Iterators:");
+        while(myIterator.hasNext()){
+            System.out.println(myIterator.next());
         }
     }
 }
