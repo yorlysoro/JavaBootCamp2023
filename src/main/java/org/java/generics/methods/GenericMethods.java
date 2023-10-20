@@ -32,7 +32,7 @@ package org.java.generics.methods;
 public class GenericMethods {
     public static void main(String[] args){
         String names[] = { "Juan", "Jose", "Pepe"};
-        String elements = Matrix.getElements(names);
-        System.out.println(elements);
+        String minor = Matrix.getMinor(names);
+        System.out.println(minor);
     }
 }

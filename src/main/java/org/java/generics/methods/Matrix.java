@@ -29,8 +29,17 @@ package org.java.generics.methods;
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class Matrix {
-    public static <T> String getElements(T[]a){
-        return "The array size is: " + a.length;
+public class Matrix{
+    public static <T extends Comparable> T getMinor(T[]a){
+        if(a == null || a.length == 0){
+            return null;
+        }
+        T minor = a[0];
+        for(int i = 1; i < a.length; i++){
+            if(minor.compareTo(a[i]) > 0){
+                minor = a[i];
+            }
+        }
+        return minor;
     }
 }
