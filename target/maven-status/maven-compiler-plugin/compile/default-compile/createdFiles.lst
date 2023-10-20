@@ -1,6 +1,7 @@
 org/java/streams/FileWrite.class
 org/java/generics/arraylists/ArrayList.class
 com/mycompany/javacourses/JavaCourse.class
+org/java/generics/methods/GenericMethods.class
 com/mycompany/javacourses/MainController.class
 org/java/generics/arraylists/ArrayLists.class
 org/java/serialization/Employee.class
@@ -19,4 +20,5 @@ org/java/generics/arraylists/Employee.class
 org/java/serialization/Serialization.class
 org/java/generics/arraylists/UseArrayList.class
 org/java/serialization/Administrator.class
+org/java/generics/methods/Matrix.class
 org/java/files/Files.class
