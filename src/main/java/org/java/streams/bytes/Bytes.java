@@ -23,18 +23,16 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mycompany.javacourses;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package org.java.streams.bytes;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+public class Bytes {
+    public static void main(String[] args){
+        BytesRead read = new BytesRead();
+        read.read();
     }
+    
 }

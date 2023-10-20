@@ -23,18 +23,45 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mycompany.javacourses;
+package org.java.streams.bytes;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+public class BytesRead {
+    
+    public void read(){
+        boolean end_file = false;
+            int length_file = 0;
+            int input_data[] = new int[1598371];
+        try {
+            FileInputStream fileRead = new FileInputStream("/home/yorlys/NetBeansProjects/JavaCourses/src/main/java/org/java/streams/bytes/imagen.jpg");
+            
+            while(!end_file){
+                int byte_input = fileRead.read();
+                if(byte_input != -1){
+                    input_data[length_file] = byte_input;
+                }else {
+                    end_file = true;
+                }
+                length_file++;
+            }
+            System.out.println(length_file);
+            BytesWrite newFile = new BytesWrite();
+            newFile.write(input_data);
+            fileRead.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(BytesRead.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(BytesRead.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

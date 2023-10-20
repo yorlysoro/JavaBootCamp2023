@@ -23,18 +23,26 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mycompany.javacourses;
+package org.java.serialization;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+public class Serialization {
+    public static void main(String[] args){
+        Administrator boss = new Administrator("Juan", 80000, 2005, 12, 15);
+        boss.setSurplus(5000);
+        Employee[] employees = new Employee[3];
+        employees[0] = boss;
+        employees[1] = new Employee("Ana", 25000, 2008, 10, 1);
+        employees[2] = new Employee("Luis", 18000, 2012, 9, 15);
+        /*WriteObject newFile = new WriteObject();
+        newFile.write(employees);
+        */
+        ReadObject readFile = new ReadObject();
+        readFile.read();
+        
     }
 }

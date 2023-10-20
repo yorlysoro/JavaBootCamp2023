@@ -23,18 +23,39 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mycompany.javacourses;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package org.java.serialization;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+public class Administrator extends Employee {
+    private int surplus;
+
+    public Administrator(String name, double salary, int year, int month, int day) {
+        super(name, salary, year, month, day);
+        this.surplus = 0;
     }
+    
+    @Override
+    public double getSalary(){
+        double baseSalary = super.getSalary();
+        return baseSalary + this.surplus;
+    }
+
+    public int getSurplus() {
+        return surplus;
+    }
+
+    public void setSurplus(int surplus) {
+        this.surplus = surplus;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " surplus=" + surplus + '}';
+    }
+    
+    
+    
 }

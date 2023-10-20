@@ -23,18 +23,36 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mycompany.javacourses;
+package org.java.serialization;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+public class ReadObject {
+    
+    public void read(){
+        try {
+            ObjectInputStream fileRead = new ObjectInputStream(new FileInputStream("/home/yorlys/NetBeansProjects/JavaCourses/src/main/java/org/java/serialization/employee.dat"));
+            Employee[] employeeRecover = (Employee[]) fileRead.readObject();
+            fileRead.close();
+            for(Employee e: employeeRecover){
+                System.out.println(e);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ReadObject.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ReadObject.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ReadObject.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
 }

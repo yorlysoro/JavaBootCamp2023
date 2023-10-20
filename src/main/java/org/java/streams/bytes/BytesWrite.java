@@ -23,18 +23,33 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mycompany.javacourses;
+package org.java.streams.bytes;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+public class BytesWrite {
+    
+    public void write(int newFile[]){
+        try {
+            FileOutputStream fileWrite = new FileOutputStream("/home/yorlys/NetBeansProjects/JavaCourses/src/main/java/org/java/streams/bytes/imagen2.jpg");
+            for(int i = 0; i < newFile.length; i++){
+                fileWrite.write(newFile[i]);
+            }
+            fileWrite.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(BytesWrite.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(BytesWrite.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
+    
 }

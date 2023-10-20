@@ -23,18 +23,31 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mycompany.javacourses;
+package org.java.streams;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+public class FileWrite {
+    
+    public void write(){
+        String frase = "This is a test";
+        try {
+            FileWriter write = new FileWriter("/home/yorlys/NetBeansProjects/JavaCourses/src/main/java/org/java/streams/new_file.txt");
+            for(int i=0; i < frase.length(); i++){
+                write.write(frase.charAt(i));
+            }
+            write.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileWrite.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
+    
 }

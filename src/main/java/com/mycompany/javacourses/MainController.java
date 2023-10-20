@@ -25,16 +25,39 @@
  */
 package com.mycompany.javacourses;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+
+@RestController
+public class MainController {
+    
+    @GetMapping("/first-test")
+    public String firstTest(){
+        return "Hello World!";
     }
+    
+    @GetMapping("/text-to-morse")
+    public String textToMorse(){
+        String text = "ABC";
+        String[] tableABC = { "A", "B", "C" };
+        String[] tableMorseCode = {".-", "-...", "-.-."};
+        String stringCoding = "";
+        for(int i = 0; i < text.length(); i++){
+            char character = text.charAt(i);
+            for(int j = 0; j < tableABC.length; j++){
+                String letterABC = tableABC[j];
+                if(letterABC.equalsIgnoreCase(String.valueOf(character))){
+                    String charCodeMorse = tableMorseCode[j];
+                    stringCoding += charCodeMorse;
+                }
+            }
+        }
+        return stringCoding;
+    }
+    
 }

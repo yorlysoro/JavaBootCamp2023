@@ -23,18 +23,38 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mycompany.javacourses;
+package org.java.streams;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-@SpringBootApplication
-public class JavaCourse {
-    public static void main(String[] arg){
-        SpringApplication.run(JavaCourse.class, arg);
+public class FileRead {
+    public void read(){
+        try {
+            input = new FileReader("/home/yorlys/NetBeansProjects/JavaCourses/src/main/java/org/java/streams/example.txt");
+            BufferedReader myBuffer = new BufferedReader(input);
+            String line = "";
+            while(line != null){
+                line = myBuffer.readLine();
+                System.out.println(line);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FileRead.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            try {
+                input.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FileRead.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
+     FileReader input;
 }
