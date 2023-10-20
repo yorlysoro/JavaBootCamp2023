@@ -34,6 +34,7 @@ import java.util.GregorianCalendar;
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
 public class Employee implements Serializable{
+    private static final long serialVersionUID = 1L;
     private String name;
     private double salary;
     private int year;

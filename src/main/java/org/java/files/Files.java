@@ -23,40 +23,29 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.serialization;
+package org.java.files;
+
+import java.io.File;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class Administrator extends Employee {
-    private static final long serialVersionUID = 1L;
-    private int surplus;
-
-    public Administrator(String name, double salary, int year, int month, int day) {
-        super(name, salary, year, month, day);
-        this.surplus = 0;
+public class Files {
+    public static void main(String[] args){
+        File file = new File("/home/yorlys/NetBeansProjects/JavaCourses/src/main/java/org/java/files");
+        System.out.println(file.getAbsolutePath());
+        String[] listFiles = file.list();
+        for(String nameFile: listFiles){
+            System.out.println(nameFile);
+            File f = new File(file.getAbsolutePath(), nameFile);
+            if(f.isDirectory()){
+                String[] subFiles = f.list();
+                for(String subFile: subFiles){
+                    System.out.println(subFile);
+                }
+            }
+        }
+        
     }
-    
-    @Override
-    public double getSalary(){
-        double baseSalary = super.getSalary();
-        return baseSalary + this.surplus;
-    }
-
-    public int getSurplus() {
-        return surplus;
-    }
-
-    public void setSurplus(int surplus) {
-        this.surplus = surplus;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + " surplus=" + surplus + '}';
-    }
-    
-    
-    
 }

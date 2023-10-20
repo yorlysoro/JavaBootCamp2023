@@ -6,8 +6,10 @@ org/java/streams/bytes/Bytes.class
 org/java/serialization/ReadObject.class
 org/java/streams/bytes/BytesRead.class
 org/java/streams/FileRead.class
+org/java/files/CreateFiles.class
 org/java/serialization/WriteObject.class
 org/java/streams/bytes/BytesWrite.class
 org/java/streams/Files.class
 org/java/serialization/Serialization.class
 org/java/serialization/Administrator.class
+org/java/files/Files.class
