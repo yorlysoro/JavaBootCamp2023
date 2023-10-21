@@ -29,12 +29,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -43,23 +48,52 @@ import javax.swing.JTextField;
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class ClientPanel extends JPanel {
+public class ClientPanel extends JPanel implements Runnable{
     private JTextField field;
-    private JTextField nick;
-    private JTextField ip;
+    private JLabel nick;
+    private JComboBox ip;
     private JTextArea txtArea;
     private JButton myButton;
+
+    @Override
+    public void run() {
+        try{
+            ServerSocket serverClient = new ServerSocket(9090);
+            Socket client;
+            PackageSend pkgReceived;
+            while(true){
+                client = serverClient.accept();
+                ObjectInputStream streamInput = new ObjectInputStream(client.getInputStream());
+                pkgReceived = (PackageSend) streamInput.readObject();
+                if(!pkgReceived.getMsg().equals(" online")){
+                    txtArea.append("\n" + pkgReceived.getNick() + ": " + pkgReceived.getMsg());
+                }else{
+                    ArrayList<String> ipsMenu = new ArrayList<>();
+                    ipsMenu = pkgReceived.getIps();
+                    ip.removeAllItems();
+                    for(String z: ipsMenu){
+                        ip.addItem(ip);
+                    }
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ClientPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ClientPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     private class SendText implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent ae) {
             System.out.println(field.getText());
+            txtArea.append("\n" + field.getText());
             try {
                 Socket mySocket = new Socket("127.0.0.1", 9090);
                 PackageSend data = new PackageSend();
                 data.setNick(nick.getText());
-                data.setIp(ip.getText());
+                data.setIp(ip.getSelectedItem().toString());
                 data.setMsg(field.getText());
                 ObjectOutputStream dataPkg = new ObjectOutputStream(mySocket.getOutputStream());
                 dataPkg.writeObject(data);
@@ -76,11 +110,18 @@ public class ClientPanel extends JPanel {
     }
     
     public ClientPanel(){
-        nick = new JTextField(5);
+        String nickUser = JOptionPane.showInputDialog("Nick: ");
+        JLabel n_nick = new JLabel("Nick: ");
+        add(n_nick);
+        nick = new JLabel();
+        nick.setText(nickUser);
         add(nick);
-        JLabel txtLabel = new JLabel("-CHAT-");
+        JLabel txtLabel = new JLabel("Online:");
         add(txtLabel);
-        ip = new JTextField(8);
+        ip = new JComboBox();
+        ip.addItem("User 1");
+        ip.addItem("User 2");
+        ip.addItem("User 3");
         add(ip);
         txtArea = new JTextArea(12,20);
         add(txtArea);
@@ -90,5 +131,8 @@ public class ClientPanel extends JPanel {
         SendText myEvent = new SendText();
         myButton.addActionListener(myEvent);
         add(myButton);
+        
+        Thread myThread = new Thread(this);
+        myThread.start();
     }
 }

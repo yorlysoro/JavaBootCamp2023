@@ -29,8 +29,11 @@ import java.awt.BorderLayout;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -60,6 +63,7 @@ public class ServerFrame extends JFrame implements Runnable {
     public void run() {
         ServerSocket server;
         try {
+            ArrayList<String> ipList = new ArrayList<>();
             server = new ServerSocket(9090);
             String nick;
             String ip;
@@ -76,8 +80,21 @@ public class ServerFrame extends JFrame implements Runnable {
                 /*DataInputStream streamInput = new DataInputStream(mySocket.getInputStream());
                 String msgText = streamInput.readUTF();
                 txtLabel.append("\n"+ msgText);*/
-                txtLabel.append("\n" + nick + ": " + msg + " to " + ip);
-                mySocket.close();
+                if(!msg.equals(" online")){
+                    txtLabel.append("\n" + nick + ": " + msg + " to " + ip);
+                    Socket sendDest = new Socket(ip, 9090);
+                    ObjectOutputStream dataSend = new ObjectOutputStream(sendDest.getOutputStream());
+                    dataSend.writeObject(pkgReceived);
+                    sendDest.close();
+                    mySocket.close();
+                }else{
+                    InetAddress localization = mySocket.getInetAddress();
+                    String remoteIp = localization.getHostAddress();
+                    System.out.println("Online: " + ip);
+                    ipList.add(remoteIp);
+                    pkgReceived.setIps(ipList);
+                    
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(ServerFrame.class.getName()).log(Level.SEVERE, null, ex);

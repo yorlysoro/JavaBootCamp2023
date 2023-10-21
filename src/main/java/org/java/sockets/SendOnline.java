@@ -25,20 +25,35 @@
  */
 package org.java.sockets;
 
-import javax.swing.JFrame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class ClientFrame extends JFrame {
+public class SendOnline extends WindowAdapter{
     
-    public ClientFrame(){
-        setBounds(600,300,280,350);
-        ClientPanel myFrame = new ClientPanel();
-        add(myFrame);
-        setVisible(true);
-        addWindowListener(new SendOnline());
+    @Override
+    public void windowOpened(WindowEvent e){
+        Socket mySocket;
+        try {
+            mySocket = new Socket("127.0.0.1", 9090);
+            PackageSend data = new PackageSend();
+            data.setMsg(" online");
+            ObjectOutputStream pkgData = new ObjectOutputStream(mySocket.getOutputStream());
+            pkgData.writeObject(data);
+            mySocket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SendOnline.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
     
 }

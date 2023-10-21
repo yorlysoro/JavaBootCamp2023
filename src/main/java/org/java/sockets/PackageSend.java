@@ -26,6 +26,7 @@
 package org.java.sockets;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -35,6 +36,15 @@ public class PackageSend implements Serializable {
     private String nick;
     private String ip;
     private String msg;
+    private ArrayList<String> ips;
+
+    public ArrayList<String> getIps() {
+        return ips;
+    }
+
+    public void setIps(ArrayList<String> ips) {
+        this.ips = ips;
+    }
 
     public String getNick() {
         return nick;
