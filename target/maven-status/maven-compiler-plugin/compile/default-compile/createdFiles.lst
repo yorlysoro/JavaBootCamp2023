@@ -1,3 +1,4 @@
+org/java/sockets/SendOnline.class
 org/java/streams/FileWrite.class
 com/mycompany/javacourses/JavaCourse.class
 org/java/collections/Client.class
@@ -54,6 +55,7 @@ org/java/collections/Employee.class
 org/java/generics/classes/Generics.class
 org/java/threads/Bank.class
 org/java/collections/UseBook.class
+org/java/jdbc/JdbcTest.class
 org/java/streams/Files.class
 org/java/serialization/Serialization.class
 org/java/serialization/Administrator.class
