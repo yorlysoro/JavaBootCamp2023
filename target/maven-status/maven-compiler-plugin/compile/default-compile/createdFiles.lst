@@ -37,15 +37,18 @@ org\java\collections\Article.class
 org\java\serialization\Serialization.class
 org\java\collections\Book.class
 org\java\threads\ManyThreads.class
+org\java\jdbc\model\LoadSections.class
 org\java\sockets\ServerFrame.class
 org\java\threads\FrameBounce$5.class
 org\java\threads\FrameBounce.class
 org\java\sockets\PackageSend.class
 org\java\threads\ExecuteTransfer.class
 com\mycompany\javacourses\JavaCourse.class
+org\java\jdbc\main\AppQuery2.class
 org\java\collections\TestMaps.class
 org\java\generics\arraylists\UseArrayList.class
 org\java\threads\FrameBounce$1.class
+org\java\jdbc\model\Products.class
 org\java\collections\Employee.class
 org\java\threads\Ball.class
 org\java\jdbc\JdbcTest.class
@@ -54,6 +57,7 @@ org\java\generics\methods\GenericMethods.class
 org\java\serialization\Employee.class
 org\java\streams\FileWrite.class
 org\java\generics\classes\Pairs.class
+org\java\jdbc\controller\ControllerSections.class
 org\java\streams\bytes\BytesWrite.class
 org\java\sockets\ClientPanel$SendText.class
 org\java\sockets\ClientPanel.class
@@ -61,6 +65,8 @@ org\java\files\CreateFiles.class
 org\java\collections\UseBook.class
 org\java\threads\FrameBounce$2.class
 org\java\collections\TestLinkedList.class
+org\java\jdbc\view\FrameApp2.class
 org\java\threads\BankSync.class
 org\java\streams\bytes\BytesRead.class
+org\java\jdbc\controller\ConnectionDB.class
 org\java\threads\Bank.class
