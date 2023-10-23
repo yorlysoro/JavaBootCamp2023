@@ -12,6 +12,7 @@ org\java\sockets\ServerRun.class
 org\java\threads\FrameBounce$6.class
 org\java\threads\SyncThreads.class
 org\java\jdbc\app\FrameApp.class
+org\java\jdbc\model\ConnectionDB.class
 org\java\serialization\ReadObject.class
 org\java\generics\arraylists\Employee.class
 org\java\sockets\ClientRun.class
@@ -68,5 +69,4 @@ org\java\collections\TestLinkedList.class
 org\java\jdbc\view\FrameApp2.class
 org\java\threads\BankSync.class
 org\java\streams\bytes\BytesRead.class
-org\java\jdbc\controller\ConnectionDB.class
 org\java\threads\Bank.class

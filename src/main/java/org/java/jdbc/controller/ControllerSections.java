@@ -27,6 +27,7 @@ package org.java.jdbc.controller;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,12 +48,13 @@ public class ControllerSections extends WindowAdapter {
     
     @Override
     public void windowOpened(WindowEvent e){
-        sections.executeQueries();
+        ResultSet result = sections.executeQueries();
         
         try {
-            while(sections.result.next()){
-                theFrame.sections.addItem(sections.result.getString("section"));
+            while(result.next()){
+                theFrame.sections.addItem(result.getString("section"));
             }
+            result.close();
         } catch (SQLException ex) {
             Logger.getLogger(ControllerSections.class.getName()).log(Level.SEVERE, null, ex);
         }

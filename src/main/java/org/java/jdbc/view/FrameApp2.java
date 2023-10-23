@@ -62,7 +62,8 @@ public class FrameApp2 extends JFrame{
         add(results, BorderLayout.CENTER);
         JButton buttonQuery = new JButton("Search");
         add(buttonQuery, BorderLayout.SOUTH);
-        addWindowListener(new ControllerSections(this));
+        ControllerSections sectionController = new ControllerSections(this);
+        addWindowListener(sectionController);
     }
     
 }
