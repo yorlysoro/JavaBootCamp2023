@@ -25,35 +25,23 @@
  */
 package org.java.jdbc.model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.java.jdbc.view.FrameApp2;
-
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class LoadSections {
-    private ConnectionDB myConn;
-    private ResultSet result;
+public class ExecuteQueries {
+    private String tests;
     
-    public LoadSections(){
-        myConn = new ConnectionDB();
-    }
-    
-    public ResultSet executeQueries(){
-        Connection accesDB = myConn.getConnection();
-        try {
-            Statement myStatement = accesDB.createStatement();
-            String querSql = "SELECT DISTINCTROW section FROM products;";
-            result = myStatement.executeQuery(querSql);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrameApp2.class.getName()).log(Level.SEVERE, null, ex);
+    public String filterDB(String section, String country){
+        this.tests = "";
+        if(!section.equals("All") && country.equals("All")){
+            this.tests = "section";
+        }else if(section.equals("All") && !country.equals("All")){
+            this.tests = "country";
+        }else {
+            this.tests = "Both";
         }
-        return result;
+        
+        return this.tests;
     }
 }

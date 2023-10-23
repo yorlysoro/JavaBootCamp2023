@@ -17,6 +17,7 @@ org\java\serialization\ReadObject.class
 org\java\generics\arraylists\Employee.class
 org\java\sockets\ClientRun.class
 org\java\collections\CompareArticles.class
+org\java\jdbc\model\LoadCountries.class
 org\java\jdbc\app\FrameApp$1.class
 org\java\streams\bytes\Bytes.class
 org\java\threads\BallThreads.class
@@ -48,12 +49,15 @@ com\mycompany\javacourses\JavaCourse.class
 org\java\jdbc\main\AppQuery2.class
 org\java\collections\TestMaps.class
 org\java\generics\arraylists\UseArrayList.class
+org\java\jdbc\controller\ControllerCountries.class
 org\java\threads\FrameBounce$1.class
 org\java\jdbc\model\Products.class
 org\java\collections\Employee.class
 org\java\threads\Ball.class
 org\java\jdbc\JdbcTest.class
 org\java\threads\ManyThreads2.class
+org\java\jdbc\model\ExecuteQueries.class
+org\java\jdbc\controller\ControllerSearch.class
 org\java\generics\methods\GenericMethods.class
 org\java\serialization\Employee.class
 org\java\streams\FileWrite.class

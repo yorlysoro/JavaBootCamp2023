@@ -23,37 +23,43 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.jdbc.model;
+package org.java.jdbc.controller;
 
-import java.sql.Connection;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
+import org.java.jdbc.model.LoadCountries;
 import org.java.jdbc.view.FrameApp2;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class LoadSections {
-    private ConnectionDB myConn;
-    private ResultSet result;
+public class ControllerCountries extends WindowAdapter {
+    private LoadCountries countries = new LoadCountries();
+    private FrameApp2 theFrame = new FrameApp2();
     
-    public LoadSections(){
-        myConn = new ConnectionDB();
+    public ControllerCountries( FrameApp2 theFrame){
+        this.theFrame = theFrame;
     }
     
-    public ResultSet executeQueries(){
-        Connection accesDB = myConn.getConnection();
+    @Override
+    public void windowOpened(WindowEvent e){
+        ResultSet result = countries.executeQueries();
+        
         try {
-            Statement myStatement = accesDB.createStatement();
-            String querSql = "SELECT DISTINCTROW section FROM products;";
-            result = myStatement.executeQuery(querSql);
+            while(result.next()){
+                JComboBox jCountries = theFrame.getCountries();
+                jCountries.addItem(result.getString("country"));
+                theFrame.setCountries(jCountries);
+            }
+            result.close();
         } catch (SQLException ex) {
-            Logger.getLogger(FrameApp2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControllerCountries.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;
     }
 }

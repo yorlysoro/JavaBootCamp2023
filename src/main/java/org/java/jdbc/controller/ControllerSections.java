@@ -31,6 +31,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import org.java.jdbc.model.LoadSections;
 import org.java.jdbc.view.FrameApp2;
 
@@ -52,7 +53,9 @@ public class ControllerSections extends WindowAdapter {
         
         try {
             while(result.next()){
-                theFrame.sections.addItem(result.getString("section"));
+                JComboBox jSections = theFrame.getSections();
+                jSections.addItem(result.getString("section"));
+                theFrame.setSections(jSections);
             }
             result.close();
         } catch (SQLException ex) {

@@ -23,37 +23,41 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.jdbc.model;
+package org.java.jdbc.controller;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
+import javax.swing.JTextArea;
+import org.java.jdbc.model.ExecuteQueries;
 import org.java.jdbc.view.FrameApp2;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class LoadSections {
-    private ConnectionDB myConn;
-    private ResultSet result;
+public class ControllerSearch implements ActionListener {
+    private FrameApp2 theFrame;
+    private ExecuteQueries search = new ExecuteQueries();
     
-    public LoadSections(){
-        myConn = new ConnectionDB();
+    public ControllerSearch(FrameApp2 theFrame){
+        this.theFrame = theFrame;
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String selecSection;
+        JComboBox jSelecSection = theFrame.getSections();
+        selecSection = jSelecSection.getSelectedItem().toString();
+        
+        String selectCountry;
+        JComboBox jSelectCountry = theFrame.getCountries();
+        selectCountry = jSelectCountry.getSelectedItem().toString();
+        
+        JTextArea txtResult = theFrame.getResults();
+        txtResult.append(search.filterDB(selecSection, selectCountry));
+        txtResult.append("\n");
+        theFrame.setResults(txtResult);
+        
     }
     
-    public ResultSet executeQueries(){
-        Connection accesDB = myConn.getConnection();
-        try {
-            Statement myStatement = accesDB.createStatement();
-            String querSql = "SELECT DISTINCTROW section FROM products;";
-            result = myStatement.executeQuery(querSql);
-        } catch (SQLException ex) {
-            Logger.getLogger(FrameApp2.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
-    }
 }

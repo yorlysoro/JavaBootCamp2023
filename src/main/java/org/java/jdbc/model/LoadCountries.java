@@ -33,15 +33,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.java.jdbc.view.FrameApp2;
 
+
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class LoadSections {
+public class LoadCountries {
     private ConnectionDB myConn;
     private ResultSet result;
     
-    public LoadSections(){
+    public LoadCountries(){
         myConn = new ConnectionDB();
     }
     
@@ -49,7 +50,7 @@ public class LoadSections {
         Connection accesDB = myConn.getConnection();
         try {
             Statement myStatement = accesDB.createStatement();
-            String querSql = "SELECT DISTINCTROW section FROM products;";
+            String querSql = "SELECT DISTINCTROW country FROM products;";
             result = myStatement.executeQuery(querSql);
         } catch (SQLException ex) {
             Logger.getLogger(FrameApp2.class.getName()).log(Level.SEVERE, null, ex);

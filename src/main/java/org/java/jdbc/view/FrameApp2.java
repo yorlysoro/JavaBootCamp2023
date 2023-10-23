@@ -32,6 +32,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import org.java.jdbc.controller.ControllerCountries;
+import org.java.jdbc.controller.ControllerSearch;
 import org.java.jdbc.controller.ControllerSections;
 
 /**
@@ -39,7 +41,7 @@ import org.java.jdbc.controller.ControllerSections;
  * @author yorly
  */
 public class FrameApp2 extends JFrame{
-    public JComboBox sections;
+    private JComboBox sections;
     private JComboBox countries;
     private JTextArea results;
     
@@ -62,8 +64,37 @@ public class FrameApp2 extends JFrame{
         add(results, BorderLayout.CENTER);
         JButton buttonQuery = new JButton("Search");
         add(buttonQuery, BorderLayout.SOUTH);
+        ControllerSearch searchController = new ControllerSearch(this);
+        buttonQuery.addActionListener(searchController);
         ControllerSections sectionController = new ControllerSections(this);
-        addWindowListener(sectionController);
+        this.addWindowListener(sectionController);
+        ControllerCountries countriesController = new ControllerCountries(this);
+        this.addWindowListener(countriesController);
     }
+
+    public JComboBox getSections() {
+        return sections;
+    }
+
+    public JComboBox getCountries() {
+        return countries;
+    }
+
+    public void setSections(JComboBox sections) {
+        this.sections = sections;
+    }
+
+    public void setCountries(JComboBox countries) {
+        this.countries = countries;
+    }
+
+    public JTextArea getResults() {
+        return results;
+    }
+
+    public void setResults(JTextArea results) {
+        this.results = results;
+    }
+    
     
 }
