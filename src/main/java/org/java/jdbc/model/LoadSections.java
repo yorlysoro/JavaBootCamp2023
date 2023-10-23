@@ -32,7 +32,6 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.java.jdbc.app.FrameApp;
-import org.java.jdbc.controller.ConnectionDB;
 
 /**
  *
@@ -40,28 +39,21 @@ import org.java.jdbc.controller.ConnectionDB;
  */
 public class LoadSections {
     private ConnectionDB myConn;
-    public ResultSet result;
+    private ResultSet result;
     
     public LoadSections(){
         myConn = new ConnectionDB();
     }
     
-    public String executeQueries(){
-        Products myProduct = null;
+    public ResultSet executeQueries(){
         Connection accesDB = myConn.getConnection();
         try {
             Statement myStatement = accesDB.createStatement();
             String querSql = "SELECT DISTINCTROW section FROM products;";
             result = myStatement.executeQuery(querSql);
-            while(result.next()){
-                myProduct = new Products();
-                myProduct.setSection(result.getString("section"));
-                return myProduct.getSection();
-            }
-            result.close();
         } catch (SQLException ex) {
             Logger.getLogger(FrameApp.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return myProduct.getSection();
+        return result;
     }
 }

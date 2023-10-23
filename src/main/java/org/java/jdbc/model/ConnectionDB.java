@@ -23,7 +23,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.jdbc.controller;
+package org.java.jdbc.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
