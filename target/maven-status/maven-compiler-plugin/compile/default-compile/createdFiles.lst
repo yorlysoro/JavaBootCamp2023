@@ -18,6 +18,7 @@ org\java\jdbc\store\procedure\ShowClients.class
 org\java\serialization\ReadObject.class
 org\java\generics\arraylists\Employee.class
 org\java\sockets\ClientRun.class
+org\java\jdbc\finalapp\UniversalApp.class
 org\java\collections\CompareArticles.class
 org\java\jdbc\metadata\DatabaseInformation.class
 org\java\jdbc\model\LoadCountries.class
@@ -50,6 +51,7 @@ org\java\threads\FrameBounce.class
 org\java\sockets\PackageSend.class
 org\java\threads\ExecuteTransfer.class
 com\mycompany\javacourses\JavaCourse.class
+org\java\jdbc\finalapp\PaneDDBB.class
 org\java\jdbc\main\AppQuery2.class
 org\java\collections\TestMaps.class
 org\java\generics\arraylists\UseArrayList.class
@@ -59,6 +61,7 @@ org\java\jdbc\model\Products.class
 org\java\collections\Employee.class
 org\java\threads\Ball.class
 org\java\jdbc\JdbcTest.class
+org\java\jdbc\finalapp\FrameDDBB.class
 org\java\threads\ManyThreads2.class
 org\java\jdbc\model\ExecuteQueries.class
 org\java\jdbc\controller\ControllerSearch.class
