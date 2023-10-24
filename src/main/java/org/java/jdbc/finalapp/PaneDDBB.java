@@ -26,16 +26,26 @@
 package org.java.jdbc.finalapp;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -45,23 +55,53 @@ public class PaneDDBB extends JPanel{
     private JComboBox tablesCombo;
     private JTextArea informationArea;
     private Connection myConn;
+    private FileReader input;
     
     public PaneDDBB(){
         setLayout(new BorderLayout());
         tablesCombo = new JComboBox();
         informationArea = new JTextArea();
         add(informationArea, BorderLayout.CENTER);
-        add(tablesCombo, BorderLayout.NORTH);
         connectBD();
         getTables();
+        tablesCombo.addActionListener((ActionEvent e) -> {
+            String tableName = tablesCombo.getSelectedItem().toString();
+            showInfoTable(tableName);
+        });
+        add(tablesCombo, BorderLayout.NORTH);
     }
     
     public void connectBD(){
         myConn = null;
+        String dataConfig[] = new String[3];
         try {
-            myConn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/test?user=yorlys&password=yorlys");
-            
+            input = new FileReader("C:\\Users\\yorly\\Git\\JavaBootCamp2023\\src\\main\\java\\org\\java\\jdbc\\finalapp\\datas_config.txt");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PaneDDBB.class.getName()).log(Level.SEVERE, null, ex);
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Config Files", "txt", "config");
+            chooser.setFileFilter(filter);
+            Integer returnVal = chooser.showOpenDialog(this);
+            if(returnVal == JFileChooser.APPROVE_OPTION){
+                String path = chooser.getSelectedFile().getAbsolutePath();
+                try {
+                    input = new FileReader(path);
+                } catch (FileNotFoundException ex1) {
+                    Logger.getLogger(PaneDDBB.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+        }
+
+        try {
+            BufferedReader myBuffer = new BufferedReader(input);
+            for(int i = 0; i <= 2; i++){
+                dataConfig[i] = myBuffer.readLine();
+            }
+            myConn = DriverManager.getConnection(dataConfig[0], dataConfig[1], dataConfig[2]);
+            input.close();
         } catch (SQLException ex) {
+            Logger.getLogger(PaneDDBB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(PaneDDBB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -77,6 +117,31 @@ public class PaneDDBB extends JPanel{
         } catch (SQLException ex) {
             Logger.getLogger(PaneDDBB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
+
+    private void showInfoTable(String tableName) {
+        ArrayList<String> columnNames = new ArrayList<>();
+        String query = "SELECT * FROM " + tableName;
+        Statement myStatement;
+        try {
+            myStatement = myConn.createStatement();
+            ResultSet myResult = myStatement.executeQuery(query);
+            ResultSetMetaData rsDB = myResult.getMetaData();
+            for(int i = 1; i < rsDB.getColumnCount(); i++){
+                columnNames.add(rsDB.getColumnLabel(i));
+            }
+            informationArea.setText("");
+            while(myResult.next()){
+                for(String column: columnNames){
+                    informationArea.append(myResult.getString(column) + " ");
+                }
+                informationArea.append("\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PaneDDBB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }
             
