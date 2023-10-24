@@ -23,54 +23,42 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.jdbc.model;
+package org.java.jdbc.store.procedure;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class ExecuteQueries {
-    private ConnectionDB myConn;
-    private ResultSet result;
-    private PreparedStatement sendSections;
-    private final String sectionQuery = "SELECT * FROM products WHERE section = ?;";
-    private PreparedStatement sendCountries;
-    private final String countryQuery = "SELECT * FROM products WHERE country = ?;";
-    private PreparedStatement sendAll;
-    private final String sendAllQuery = "SELECT * FROM products WHERE section = ? AND country =?;";
-    
-    public ExecuteQueries(){
-        myConn = new ConnectionDB();
-    }
-    public ResultSet filterDB(String section, String country){
-        Connection conect = myConn.getConnection();
-        result = null;
-        try {
-            if(!section.equals("All") && country.equals("All")){
-              sendSections = conect.prepareStatement(sectionQuery);
-              sendSections.setString(1, section);
-              result = sendSections.executeQuery();
-            }else if(section.equals("All") && !country.equals("All")){
-               sendCountries = conect.prepareStatement(countryQuery);
-               sendCountries.setString(1, country);
-               result = sendCountries.executeQuery();
-            }else {
-               sendAll = conect.prepareStatement(sendAllQuery);
-               sendAll.setString(1, section);
-               sendAll.setString(2, country);
-               result = sendAll.executeQuery();
-            }
-        } catch (SQLException ex) {
-                Logger.getLogger(ExecuteQueries.class.getName()).log(Level.SEVERE, null, ex);
-            }
+public class UpdateProduct {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
         
-        return result;
+        String url = "jdbc:mariadb://localhost:3306/test?user=yorlys&password=yorlys";
+        Double price = Double.parseDouble(JOptionPane.showInputDialog("Price: "));
+        String name = JOptionPane.showInputDialog("Name:");
+        try {
+            Connection myConn = DriverManager.getConnection(url);
+            String sql = "{ call UPDATE_PRODUCT(?,?) }";
+            CallableStatement myCall = myConn.prepareCall(sql);
+            myCall.setDouble(1, price);
+            myCall.setString(2, name);
+            myCall.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ShowClients.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
 }

@@ -23,12 +23,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.java.jdbc.model;
+package org.java.jdbc.store.procedure;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,41 +38,27 @@ import java.util.logging.Logger;
  *
  * @author yorlysoropeza <yorlysoro@gmail.com>
  */
-public class ExecuteQueries {
-    private ConnectionDB myConn;
-    private ResultSet result;
-    private PreparedStatement sendSections;
-    private final String sectionQuery = "SELECT * FROM products WHERE section = ?;";
-    private PreparedStatement sendCountries;
-    private final String countryQuery = "SELECT * FROM products WHERE country = ?;";
-    private PreparedStatement sendAll;
-    private final String sendAllQuery = "SELECT * FROM products WHERE section = ? AND country =?;";
-    
-    public ExecuteQueries(){
-        myConn = new ConnectionDB();
-    }
-    public ResultSet filterDB(String section, String country){
-        Connection conect = myConn.getConnection();
-        result = null;
+public class ShowClients {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        String url = "jdbc:mariadb://localhost:3306/test?user=yorlys&password=yorlys";
         try {
-            if(!section.equals("All") && country.equals("All")){
-              sendSections = conect.prepareStatement(sectionQuery);
-              sendSections.setString(1, section);
-              result = sendSections.executeQuery();
-            }else if(section.equals("All") && !country.equals("All")){
-               sendCountries = conect.prepareStatement(countryQuery);
-               sendCountries.setString(1, country);
-               result = sendCountries.executeQuery();
-            }else {
-               sendAll = conect.prepareStatement(sendAllQuery);
-               sendAll.setString(1, section);
-               sendAll.setString(2, country);
-               result = sendAll.executeQuery();
+            Connection myConn = DriverManager.getConnection(url);
+            CallableStatement myCall = myConn.prepareCall("{ call SHOW_CLIENTS }");
+            ResultSet result = myCall.executeQuery();
+            while(result.next()){
+                System.out.println(result.getString(1) + "," +
+                        result.getString(2)+ "," + 
+                        result.getString(3));
             }
+            result.close();
         } catch (SQLException ex) {
-                Logger.getLogger(ExecuteQueries.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-        return result;
+            Logger.getLogger(ShowClients.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
 }

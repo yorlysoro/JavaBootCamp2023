@@ -27,6 +27,10 @@ package org.java.jdbc.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import org.java.jdbc.model.ExecuteQueries;
@@ -39,7 +43,8 @@ import org.java.jdbc.view.FrameApp2;
 public class ControllerSearch implements ActionListener {
     private FrameApp2 theFrame;
     private ExecuteQueries search = new ExecuteQueries();
-    
+    private ResultSet resultQuery;
+   
     public ControllerSearch(FrameApp2 theFrame){
         this.theFrame = theFrame;
     }
@@ -52,11 +57,23 @@ public class ControllerSearch implements ActionListener {
         String selectCountry;
         JComboBox jSelectCountry = theFrame.getCountries();
         selectCountry = jSelectCountry.getSelectedItem().toString();
+
+        resultQuery = search.filterDB(selecSection, selectCountry);
+        try {
+            JTextArea txtResult = theFrame.getResults();
+            txtResult.setText("");
+            while(resultQuery.next()){
+                txtResult.append("ID: " + resultQuery.getString("id") + " Name: " +
+                        resultQuery.getString("name") + " Code: " + resultQuery.getString("code") +
+                        " Price: " + resultQuery.getString("price") + " Date: " + resultQuery.getString("date")
+                + " Country: " + resultQuery.getString("country") + 
+                        " Setcion: " + resultQuery.getString("section") + "\n");
+                theFrame.setResults(txtResult);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerSearch.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        JTextArea txtResult = theFrame.getResults();
-        txtResult.append(search.filterDB(selecSection, selectCountry));
-        txtResult.append("\n");
-        theFrame.setResults(txtResult);
         
     }
     
